@@ -1,6 +1,6 @@
 import argparse
 
-from .image_retriever import ImageRetriver
+from .image_retriever import ImageRetriever
 
 
 def main():
@@ -75,5 +75,5 @@ def main():
     )
     args = parser.parse_args()
 
-    image_retriever = ImageRetriver(args)
-    image_retriever.run(args)
+    retriever = ImageRetriever(args)
+    retriever.run(args)

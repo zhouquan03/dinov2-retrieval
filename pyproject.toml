@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 name = "dinov2-retrieval"
 version = "0.0.2"
 authors = [
-  { name="Yunfeng Wang", email="wyf.brz@gmail.com" },
+    { name = "Yunfeng Wang", email = "wyf.brz@gmail.com" },
 ]
 description = "A cli program of image retrieval using dinov2"
 readme = "README.md"
@@ -17,15 +17,15 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
-"appdirs",
-"torch",
-"pillow",
-"numpy",
-"loguru",
+    "appdirs",
+    "torch",
+    "pillow",
+    "numpy",
+    "loguru",
 ]
 
 [project.scripts]
-dinov2_retrieval="dinov2_retrieval.__init__:main"
+dinov2_retrieval = "dinov2_retrieval.__init__:main"
 
 [project.urls]
 "Homepage" = "https://github.com/vra/dinov2-retrieval"

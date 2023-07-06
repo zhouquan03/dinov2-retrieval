@@ -1,7 +1,9 @@
 # dinov2-retrieval
+
 A program of image retrieval using dinov2
 
-Some random results(left: query image, others: retrieved image from [Caltech 256](https://data.caltech.edu/records/nyy15-4j048)):
+Some random results(left: query image, others: retrieved image
+from [Caltech 256](https://data.caltech.edu/records/nyy15-4j048)):
 ![](./imgs/1688175364717_output.jpg)
 ![](./imgs/1688175364731_output.jpg)
 ![](./imgs/1688175364741_output.jpg)
@@ -14,10 +16,13 @@ Some random results(left: query image, others: retrieved image from [Caltech 256
 ![](./imgs/1688219476156_output.jpg)
 
 ## How to install
+
 ```bash
 pip install dinov2_retrieval
 ```
+
 Tested on:
+
 + MacOS 13.4
 + Windows 11
 + Ubuntu 20.04
@@ -25,6 +30,7 @@ Tested on:
 ## How to use
 
 All available options:
+
 ```bash
 $ dinov2_retrieval -h
 usage: dinov2_retrieval [-h] [-s {small,base,large,largest}] [-p MODEL_PATH] [-o OUTPUT_ROOT] -q QUERY -d DATABASE [-n NUM] [--size SIZE]
@@ -51,26 +57,34 @@ optional arguments:
 ```
 
 Generally, You only need to set `-q` (or `--query`) and `-d` (or `--database`) to run this program:
+
 ```bash
 dinov2_retrieval -q /path/to/query/image -d /path/to/database
 ```
+
 NOTE: both of them can be path to an image or a folder.
 
 The results will be saved to `output` folder.
 
 ### Debug info
+
 add `-v` or `--verbose` to show debug info
 
 ### Change model size
-DINOv2 contains 4 types of pretrained models, you can use `--model_size` + one of [small, base, large, largest] to choose which model to use.
+
+DINOv2 contains 4 types of pretrained models, you can use `--model_size` + one of [small, base, large, largest] to
+choose which model to use.
 
 ### Use cached model
-If the network to GitHub (where the DINOv2 models are stored) is unstable, you can set `--model-path` to cached model folder after downloading model during the first run.
 
+If the network to GitHub (where the DINOv2 models are stored) is unstable, you can set `--model-path` to cached model
+folder after downloading model during the first run.
 
 ## TODO
+
 + [ ]. optimize visualization result, e.g., better background color
 + [ ]. More tech details
 
 ## License
+
 MIT

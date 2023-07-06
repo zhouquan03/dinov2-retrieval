@@ -1,19 +1,19 @@
 import http
-from pathlib import Path
 import pickle
 import sys
+from pathlib import Path
 
-import appdirs
-from loguru import logger
-import numpy as np
 import PIL
-from PIL import Image, ImageOps
+import appdirs
+import numpy as np
 import torch
-from torchvision import models, transforms
+from PIL import Image, ImageOps
+from loguru import logger
+from torchvision import transforms
 from tqdm import tqdm
 
 
-class ImageRetriver:
+class ImageRetriever:
     """
     image retrieval object using dinov2.
     """
@@ -60,7 +60,7 @@ class ImageRetriver:
 
         self.model.eval()
 
-        # Construct image tranforms
+        # Construct image transforms
         self.transform = transforms.Compose(
             [
                 transforms.Resize(256),
@@ -81,18 +81,18 @@ class ImageRetriver:
             )
             cache_root_folder.mkdir(parents=True, exist_ok=True)
             self.database_features_cache_path = cache_root_folder / (
-                Path(args.database).name + "_" + model_name + ".pkl"
+                    Path(args.database).name + "_" + model_name + ".pkl"
             )
             logger.debug(f"{cache_root_folder=}, {self.database_features_cache_path=}")
 
     def glob_images(self, path):
         """Find all image files in path"""
         return (
-            list(path.rglob("*.jpg"))
-            + list(path.rglob("*.JPG"))
-            + list(path.rglob("*.jpeg"))
-            + list(path.rglob("*.png"))
-            + list(path.rglob("*.bmp"))
+                list(path.rglob("*.jpg"))
+                + list(path.rglob("*.JPG"))
+                + list(path.rglob("*.jpeg"))
+                + list(path.rglob("*.png"))
+                + list(path.rglob("*.bmp"))
         )
 
     def extract_database_features(self, database_img_paths):
@@ -181,21 +181,21 @@ class ImageRetriver:
         return cosine_distances
 
     def save_result(
-        self,
-        args,
-        query_image,
-        query_path,
-        database_img_paths,
-        closest_indices,
-        sorted_distances,
+            self,
+            args,
+            query_image,
+            query_path,
+            database_img_paths,
+            closest_indices,
+            sorted_distances,
     ):
         img_save_folder = (
-            Path(args.output_root)
-            / Path(args.database).name
-            / Path(self.model_name).name
+                Path(args.output_root)
+                / Path(args.database).name
+                / Path(self.model_name).name
         )
         img_save_path = img_save_folder / (
-            query_path.stem + "_output" + query_path.suffix
+                query_path.stem + "_output" + query_path.suffix
         )
         logger.info(f"Save results to {img_save_path}")
 

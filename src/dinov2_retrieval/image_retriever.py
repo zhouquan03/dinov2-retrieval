@@ -12,6 +12,8 @@ from loguru import logger
 from torchvision import transforms
 from tqdm import tqdm
 
+torch.set_default_device('mps')
+
 
 class ImageRetriever:
     """

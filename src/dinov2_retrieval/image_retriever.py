@@ -12,8 +12,6 @@ from loguru import logger
 from torchvision import transforms
 from tqdm import tqdm
 
-torch.set_default_device('mps')
-
 
 class ImageRetriever:
     """
@@ -101,9 +99,13 @@ class ImageRetriever:
         """Extract database dinov2 features"""
         database_features = []
         for img_path in tqdm(database_img_paths):
-            img = Image.open(str(img_path)).convert("RGB")
-            feature = self.extract_single_image_feature(img)
-            database_features.append(feature)
+            try:
+                img = Image.open(str(img_path)).convert("RGB")
+                feature = self.extract_single_image_feature(img)
+                database_features.append(feature)
+            except Exception as e:
+                logger.error("skip error image: %s" % str(img_path))
+
         return database_features
 
     def run(self, args):

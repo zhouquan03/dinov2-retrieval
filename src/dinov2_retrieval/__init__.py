@@ -42,6 +42,12 @@ def main():
         help="path to the database image file or image folder",
     )
     parser.add_argument(
+        "--imdb_path",
+        type=str,
+        required=True,
+        help="path to the imdb folder, to store features",
+    )
+    parser.add_argument(
         "-n",
         "--num",
         type=int,

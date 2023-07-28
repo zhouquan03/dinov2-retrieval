@@ -1,5 +1,7 @@
 import http
+import os
 import pickle
+import shutil
 import sys
 from pathlib import Path
 
@@ -11,6 +13,8 @@ from PIL import Image, ImageOps
 from loguru import logger
 from torchvision import transforms
 from tqdm import tqdm
+
+from .imdb_util import initialize, update
 
 
 class ImageRetriever:
@@ -167,6 +171,11 @@ class ImageRetriever:
             closest_indices = np.argsort(distances)[::-1][: self.top_k]
             sorted_distances = np.sort(distances)[::-1][: self.top_k]
 
+            logger.debug("save to imdb")
+            self.save_to_imdb(args.imdb_path, database_img_paths, database_features)
+
+            logger.debug("Save results")
+
             self.save_result(
                 args,
                 img,
@@ -264,3 +273,12 @@ class ImageRetriever:
         with torch.no_grad():
             feature = self.model(net_input).squeeze().numpy()
         return feature
+
+    def save_to_imdb(self, imdb_path, database_img_paths, database_features):
+        shutil.rmtree(imdb_path, ignore_errors=True)
+        os.makedirs(imdb_path, exist_ok=True)
+
+        lmdb_vit = initialize(imdb_path, gb=10)
+
+        for img_path, feature in zip(database_img_paths, database_features):
+            update(lmdb_vit, str(img_path), feature)
